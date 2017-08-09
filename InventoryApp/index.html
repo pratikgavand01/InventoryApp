@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app='InspyrusInventoryApp'>
+<head>
+    <title>Inspyrus Inventory</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/table.css">
+</head>
+<body ng-controller='homeController'>
+
+<div class="row">
+    <div class="col-sm-12">
+       <h3>Navigation Bar</h3>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <ul class="nav navbar-nav">
+              <li ><a href="#/home">Home</a></li>
+              <li><a href="#/CustomerHome">Customers</a></li>
+              <li><a href="#/URL">URL Info</a></li>
+              <li><a href="#/Contact">Contacts</a></li>
+            </ul>
+          </div>
+           
+        </nav>
+    </div>
+</div>  
+      <div ng-view></div> 
+    
+   <script src="./scripts/angular.js"></script>
+    <script src="./scripts/angular-route.js"></script>
+    <script src="./app/InspyrusInventoryApp.js"></script>
+    <script src="./app/controllers/homeController.js"></script>
+    <script src="./app/controllers/customerController.js"></script>
+    <script src="./app/controllers/customerHomeConroller.js"></script>
+    <script src="./app/controllers/URLController.js"></script>
+    <script src="./app/controllers/contactController.js"></script>
+    <script src="./scripts/bootstrap.min.js"></script>
+    <script src="./scripts/jquery.min.js"></script>
+</body>
+</html> 

@@ -1,0 +1,291 @@
+
+
+
+
+<div class="container-fluid">    
+    <div class="row content">
+        <div class="col-sm-2 sidenav hidden-xs">
+                <ul ng-repeat="cust in Customers" class="nav nav-pills nav-stacked">
+                    <li><a href="#/CustomerDetails/{{cust.CustomerId}}">{{cust.CustomerName | uppercase}}</a></li>
+                </ul>
+        </div>
+
+        <div class="input-group col-sm-10">
+            <div class="panel">
+                <div class="panel-body">
+                    <div id="custom-search-input">
+                            <input type="text" class="search-query form-control" placeholder="Search" ng-model="searchText" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-10">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><input type="checkbox" ng-model='showCustDetails'>Show/Hide Customer Details</div>
+                <div class="panel-body" ng-show="!showCustDetails">
+                    <table class="table table-hover table-striped table-condensed table-bordered">
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Environment Type</th>
+                            <th>IIA Version</th>
+                            <th>Location</th>
+                            <th>TimeZone</th>
+                        </tr>
+                        <tr>
+                            <td>{{customerDetails.CustomerName}}</td>
+                            <td>{{customerDetails.EnvType}}</td>
+                            <td>{{customerDetails.IIAVersion}}</td>
+                            <td>{{customerDetails.Location}}</td>
+                            <td>{{customerDetails.TimeZone}}</td>
+                        </tr>
+                    </table>
+
+                        <div ng-show="blnshowContact">
+                            <table  class="table table-hover table-striped table-condensed table-bordered">
+                                <tr>
+                                    <th>Contact Name</th>
+                                    <th>Contact Email</th>
+                                    <th>Contact Type</th>
+                                    <th>Comments</th>
+                                </tr>
+                                <tr ng-repeat="contactDetails in customerDetails.Contact">
+                                    <td>{{contactDetails.name | uppercase}}</td>
+                                    <td>{{contactDetails.email | lowercase}}</td>
+                                    <td>{{contactDetails.type}}</td>
+                                    <td>{{contactDetails.comments}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <a href="" ng-click="showMoreContact()">{{contactLabel}}</a>
+
+                </div>
+            </div>
+
+            <div ng-show="0 != {{VPNAccounts.length}}">
+            <div class="panel panel-primary">
+                <div class="panel-heading">VPN Accounts</div>
+                <div class="panel-body">
+                    <table class="table table-hover table-striped table-condensed table-bordered">
+                        <tr>
+                            <th>Tool</th>
+                            <th>URL</th>
+                            <th>UserID</th>
+                            <th>Password</th>
+                            <th>Comments</th>
+                        </tr>
+                        <tr ng-repeat="VPN in VPNAccounts">
+                            <td>{{VPN.Tool}}</td>
+                            <td>{{VPN.URL}}</td>
+                            <td>{{VPN.UserId}}</td>
+                            <td>{{VPN.Password}}</td>
+                            <td>{{VPN.Comments}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            </div>
+            <div class="panel panel-primary" ng-show="0!=customerEnvDetails.length">
+                <div class="panel-heading"><input type="checkbox" ng-model='showEnvironmentDetails'>Show/Hide Environment Details</div>
+                <div class="panel-body" ng-show="!showEnvironmentDetails">
+                    <div class="panel panel-info" ng-show="0!=(customerEnvDetails | filter:'Database').length">
+                        <div class="panel-heading"><input type="checkbox" ng-model='showDatabase'>Show/Hide Database</div>
+                        <div class="panel-body" ng-show="!showDatabase">
+                            <table class="table table-hover table-striped table-condensed table-bordered">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Environment</th>
+                                    <th>Host</th>
+                                    <th>UserId</th>
+                                    <th>Password</th>
+                                    <th>IP</th>
+                                    <th>Port</th>
+                                    <th>ServiceName</th>
+                                    <th>OS</th>
+                                </tr>
+                                <tr ng-repeat="custDet in customerEnvDetails | filter:'Database' | filter:searchText">
+                                    <td>{{custDet.Name}}</td>
+                                    <td>{{custDet.Type}}</td>
+                                    <td>{{custDet.Environment}}</td>
+                                    <td>{{custDet.Host}}</td>
+                                    <td>{{custDet.UserId}}</td>
+                                    <td>{{custDet.Password}}</td>
+                                    <td>{{custDet.IP}}</td>
+                                    <td>{{custDet.Port}}</td>
+                                    <td>{{custDet.ServiceName}}</td>
+                                    <td>{{custDet.OS}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-info" ng-show="0!=(customerEnvDetails | filter:'Unix').length">
+                        <div class="panel-heading"><input type="checkbox" ng-model='showUnix'>Show/Hide Unix</div>
+                        <div class="panel-body" ng-show="!showUnix">
+                            <table class="table table-hover table-striped table-condensed table-bordered">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Environment</th>
+                                    <th>Host</th>
+                                    <th>UserId</th>
+                                    <th>Password</th>
+                                    <th>IP</th>
+                                    <th>Port</th>
+                                    <th>ServiceName</th>
+                                    <th>OS</th>
+                                </tr>
+                                <tr ng-repeat="custDet in customerEnvDetails | filter:'Unix' | filter:searchText">
+                                    <td>{{custDet.Type}}</td>
+                                    <td>{{custDet.Environment}}</td>
+                                    <td>{{custDet.Host}}</td>
+                                    <td>{{custDet.UserId}}</td>
+                                    <td>{{custDet.Password}}</td>
+                                    <td>{{custDet.IP}}</td>
+                                    <td>{{custDet.Port}}</td>
+                                    <td>{{custDet.ServiceName}}</td>
+                                    <td>{{custDet.OS}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                    <div class="panel panel-info" ng-show="0!=(customerEnvDetails | filter:'AdminServer').length">
+                        <div class="panel-heading"><input type="checkbox" ng-model='showAdminServer'>Show/Hide Admin Server</div>
+                        <div class="panel-body" ng-show="!showAdminServer">
+                            <table class="table table-hover table-striped table-condensed table-bordered">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Environment</th>
+                                    <th>Host</th>
+                                    <th>UserId</th>
+                                    <th>Password</th>
+                                    <th>IP</th>
+                                    <th>Port</th>
+                                    <th>ServiceName</th>
+                                    <th>OS</th>
+                                </tr>
+                                <tr ng-repeat="custDet in customerEnvDetails | filter:'AdminServer' | filter:searchText">
+                                    <td>{{custDet.Type}}</td>
+                                    <td>{{custDet.Environment}}</td>
+                                    <td>{{custDet.Host}}</td>
+                                    <td>{{custDet.UserId}}</td>
+                                    <td>{{custDet.Password}}</td>
+                                    <td>{{custDet.IP}}</td>
+                                    <td>{{custDet.Port}}</td>
+                                    <td>{{custDet.ServiceName}}</td>
+                                    <td>{{custDet.OS}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+                       <div class="panel panel-info" ng-show="0!=(customerEnvDetails | filter:'Capture').length">
+                        <div class="panel-heading">Capture</div>
+                        <div class="panel-body">
+                            <table class="table table-hover table-striped table-condensed table-bordered">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Environment</th>
+                                    <th>Host</th>
+                                    <th>UserId</th>
+                                    <th>Password</th>
+                                    <th>IP</th>
+                                    <th>Port</th>
+                                    <th>ServiceName</th>
+                                    <th>OS</th>
+                                </tr>
+                                <tr ng-repeat="custDet in customerEnvDetails | filter:'Capture' | filter:searchText">
+                                    <td>{{custDet.Type}}</td>
+                                    <td>{{custDet.Environment}}</td>
+                                    <td>{{custDet.Host}}</td>
+                                    <td>{{custDet.UserId}}</td>
+                                    <td>{{custDet.Password}}</td>
+                                    <td>{{custDet.IP}}</td>
+                                    <td>{{custDet.Port}}</td>
+                                    <td>{{custDet.ServiceName}}</td>
+                                    <td>{{custDet.OS}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="panel panel-info" ng-show="0!=(customerEnvDetails | filter:'OFR').length">
+                        <div class="panel-heading">OFR</div>
+                        <div class="panel-body">
+                            <table class="table table-hover table-striped table-condensed table-bordered">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Environment</th>
+                                    <th>Host</th>
+                                    <th>UserId</th>
+                                    <th>Password</th>
+                                    <th>IP</th>
+                                    <th>Port</th>
+                                    <th>ServiceName</th>
+                                    <th>OS</th>
+                                </tr>
+                                <tr ng-repeat="custDet in customerEnvDetails | filter:'OFR' | filter:searchText">
+                                    <td>{{custDet.Type}}</td>
+                                    <td>{{custDet.Environment}}</td>
+                                    <td>{{custDet.Host}}</td>
+                                    <td>{{custDet.UserId}}</td>
+                                    <td>{{custDet.Password}}</td>
+                                    <td>{{custDet.IP}}</td>
+                                    <td>{{custDet.Port}}</td>
+                                    <td>{{custDet.ServiceName}}</td>
+                                    <td>{{custDet.OS}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+             <div class="panel panel-primary"  ng-show="0!=AppUsers.length">
+                    <div class="panel-heading"><input type="checkbox" ng-model='showAppUsers'>Show/Hide Application Users</div>
+                    <div class="panel-body" ng-show="!showAppUsers">
+                        <table class="table table-hover table-striped table-condensed table-bordered">
+                            <tr>
+                                <th>User Name</th>
+                                <th>Password</th>
+                                <th>Environment</th>
+                                <th>Type</th>
+                            </tr>
+                            <tr ng-repeat="user in  AppUsers | filter:searchText">
+                                <td>{{user.userName}}</td>
+                                <td>{{user.password}}</td>
+                                <td>{{user.environment}}</td>
+                                <td>{{user.type}}</td>
+                            </tr>
+                        </table>
+                    </div>
+            </div>
+            
+            <div class="panel panel-primary" ng-show="0!=EmailBox.length">
+                <div class="panel-heading"><input type="checkbox" ng-model='showEmailBox'>Show/Hide EmailBox</div>
+                <div class="panel-body" ng-show="!showEmailBox">
+                    <table class="table table-hover table-striped table-condensed table-bordered">
+                        <tr>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Environment</th>
+                        </tr>
+                        <tr ng-repeat="emailBox in EmailBox | filter:searchText">
+                            <td>{{emailBox.email}}</td>
+                            <td>{{emailBox.password}}</td>
+                            <td>{{emailBox.environment}}</td>                    
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

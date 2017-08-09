@@ -1,0 +1,42 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <div class="panel">
+                <div class="panel-body">
+                    <div id="custom-search-input">
+                            <input type="text" class="search-query form-control" placeholder="Search" ng-model="txtSearchUrl" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-1"></div>
+         <div class="col-sm-10">
+            <div class="panel panel-primary">
+                <div class="panel-heading">URL Details</div>
+                    <div class="panel-body">
+
+                            <table style="width:100%" class="table table-hover table-striped table-condensed table-bordered">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr ng-repeat="url in URL | filter:txtSearchUrl">
+                                    <td>{{url.name}}</td>
+                                    <td>{{url.description}}</td>
+                                    <td><a href="{{url.value}}">{{url.value}}</a></td>
+                                </tr>
+                            </table>
+                    </div>
+            </div>
+
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+</div>
